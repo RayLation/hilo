@@ -674,8 +674,7 @@ class HiloChallengeSensor(HiloEntity, RestoreEntity, SensorEntity):
         self.async_update = Throttle(self.scan_interval)(self._async_update)
 
     @property
-    def state(self):
-        LOG.debug("test")
+    def state(self):        
         return self._state
 
     @property
