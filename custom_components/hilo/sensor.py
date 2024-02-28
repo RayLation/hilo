@@ -675,11 +675,7 @@ class HiloChallengeSensor(HiloEntity, RestoreEntity, SensorEntity):
 
     @property
     def state(self):
-        if len(self._next_events) > 0:
-            event = Event(**{**{"id": 0}, **self._next_events[0]})
-            return event.state
-        else:
-            return "off"
+        return self._state
 
     @property
     def icon(self):
@@ -730,6 +726,12 @@ class HiloChallengeSensor(HiloEntity, RestoreEntity, SensorEntity):
             if self._hilo.pre_cold > 0:
                 event.pre_cold(self._hilo.pre_cold)
             self._next_events.append(event.as_dict())
+
+        if len(self._next_events) > 0:
+            event = Event(**{**{"id": 0}, **self._next_events[0]})
+            self._state = event.state
+        else:
+            self._state = "off"
 
 
 class DeviceSensor(HiloEntity, SensorEntity):
