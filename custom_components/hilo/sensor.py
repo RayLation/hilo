@@ -727,6 +727,7 @@ class HiloChallengeSensor(HiloEntity, RestoreEntity, SensorEntity):
                 event.pre_cold(self._hilo.pre_cold)
             self._next_events.append(event.as_dict())
 
+        //mise à jour du state après le polling
         if len(self._next_events) > 0:
             event = Event(**{**{"id": 0}, **self._next_events[0]})
             self._state = event.state
